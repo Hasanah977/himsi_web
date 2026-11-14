@@ -1,0 +1,31 @@
+@extends(auth()->user()->role === 'koordinator_departemen' ? 'department.layout' : 'administration.layout')
+@section('title', 'Pengajuan RPK')
+@push('styles')<link rel="stylesheet" href="{{ asset('css/himsi-kpum.css') }}"><link rel="stylesheet" href="{{ asset('css/himsi-department.css') }}">@endpush
+@section('content')
+<div class="k-heading"><div><div class="k-eyebrow">PERENCANAAN KEPENGURUSAN</div><h1>Pengajuan RPK</h1><p>Panduan Perencanaan Rencana Kegiatan · Periode {{ config('department.period') }}</p></div></div>
+<section class="k-panel"><h2 class="mb-3">Alur pemeriksaan</h2><p>Koordinator mengunggah dokumen → Ketua Umum, Bendahara, dan Sekertaris meninjau → Koordinator Pengawas memverifikasi → Sekertaris mengarsipkan.</p><p class="mb-0 text-secondary">Ketiga pengurus wajib memberikan keputusan dan catatan. Jika ada yang tidak setuju, dokumen dikembalikan setelah ketiganya selesai meninjau. Pembuatan proker terbuka setelah Koordinator Pengawas menyetujui RPK. Unggahan ulang memulai pemeriksaan dari awal.</p></section>
+@if(auth()->user()->role === 'koordinator_departemen')
+<section class="k-panel"><div class="k-panel-head"><h2>RPK departemen Anda</h2><span class="badge bg-light text-dark">{{ config('department.pprk_statuses.'.($current?->status ?? 'draft')) }}</span></div>
+@if(!$current || in_array($current->status,['draft','rejected','supervisor_rejected']))
+<form method="POST" enctype="multipart/form-data" action="{{ route('department.pprk.upload') }}">@csrf<input type="hidden" name="version" value="{{ $current?->version ?? 0 }}"><label class="form-label" for="pprk-file">{{ $current?->file_path ? 'Unggah perbaikan RPK' : 'Dokumen RPK' }}</label><input class="form-control" type="file" name="file" id="pprk-file" accept=".pdf,.doc,.docx" required><p class="small text-secondary mt-2">PDF atau Word (DOC/DOCX), maksimal 10 MB. Periode mengikuti kepengurusan aktif.</p><button class="btn o-btn-yellow mt-2" type="submit"><i class="bi bi-send"></i> Kirim RPK untuk ditinjau</button></form>
+@elseif(in_array($current->status,['pending_archive','archived']))<p>Seluruh persetujuan RPK telah lengkap. Anda dapat membuat program kerja periode ini.</p><a class="btn btn-navy" href="{{ route('department.program.create',auth()->user()->department) }}">Buat Program Kerja</a>
+@else<p class="mb-0">Dokumen sedang diperiksa. Pantau keputusan dan catatan setiap pemeriksa di bawah.</p>@endif</section>
+@endif
+@forelse($items as $item)
+<section class="k-panel" id="pprk-{{ $item->id }}">
+<div class="k-panel-head"><div><h2>{{ config('superadmin.departments.'.$item->department) }} <span class="text-secondary small">· {{ $item->period }}</span></h2><p class="small text-secondary mb-0">Versi dokumen {{ $item->revision }} · {{ $item->updated_at->copy()->timezone('Asia/Makassar')->format('d/m/Y H:i') }}</p></div><span class="badge bg-light text-dark">{{ config('department.pprk_statuses.'.$item->status) }}</span></div>
+@if($item->file_path)<div class="d-flex flex-wrap gap-2 mb-4"><a class="btn btn-outline-navy btn-sm" href="{{ route('department.pprk.file',$item->id) }}"><i class="bi bi-download"></i> {{ $item->file_name }}</a>@if(strtolower(pathinfo($item->file_name,PATHINFO_EXTENSION)) === 'pdf')<a class="btn btn-outline-navy btn-sm" target="_blank" rel="noopener" href="{{ route('department.pprk.file',[$item->id,'preview'=>1]) }}"><i class="bi bi-eye"></i> Buka PDF</a>@endif</div>@endif
+<div class="pprk-review-grid mb-3">@foreach(['ketua_umum','bendahara_umum','sekretaris_umum'] as $reviewRole)@php $review = $item->reviews[$reviewRole] ?? null; @endphp<article class="pprk-review-card"><strong class="small">{{ config('superadmin.roles.'.$reviewRole) }}</strong><p class="{{ !$review ? 'text-secondary' : ($review['decision']==='approve'?'text-success':'text-danger') }}">{{ !$review ? 'Menunggu tinjauan' : ($review['decision']==='approve'?'Disetujui':'Tidak disetujui') }}</p>@if($review)<p>{{ $review['note'] }}</p><small>{{ $review['actor'] }}</small>@endif</article>@endforeach</div>
+@if($item->reviews['koordinator_pengawas'] ?? null)<p><strong>Koordinator Pengawas:</strong> {{ $item->reviews['koordinator_pengawas']['decision'] === 'approve' ? 'Disetujui' : 'Tidak disetujui' }} — {{ $item->reviews['koordinator_pengawas']['note'] }}</p>@endif
+@php
+    $role = auth()->user()->role;
+    $canReview = ($item->status === 'pending_officers' && in_array($role,['ketua_umum','bendahara_umum','sekretaris_umum']) && !isset($item->reviews[$role])) || ($item->status === 'pending_supervisor' && $role === 'koordinator_pengawas');
+    $canArchive = $item->status === 'pending_archive' && $role === 'sekretaris_umum';
+@endphp
+@if($canReview || $canArchive)<form method="POST" action="{{ route('department.pprk.review',$item->id) }}" class="border-top pt-3 mt-3">@csrf<input type="hidden" name="version" value="{{ $item->version }}"><label class="form-label" for="note-{{ $item->id }}">Catatan {{ $canArchive ? 'pengarsipan' : 'pemeriksaan' }}</label><textarea class="form-control mb-3" id="note-{{ $item->id }}" name="note" rows="3" maxlength="3000" required></textarea><div class="d-flex gap-2">@if($canArchive)<button class="btn btn-navy" name="action" value="archive"><i class="bi bi-archive"></i> Arsipkan RPK</button>@else<button class="btn btn-navy" name="action" value="approve">Setuju</button><button class="btn btn-outline-danger" name="action" value="reject">Tidak Setuju</button>@endif</div></form>@endif
+@if($item->archived_at)<p class="small text-success mt-3">Diarsipkan pada {{ $item->archived_at->copy()->timezone('Asia/Makassar')->format('d/m/Y H:i') }}. Dokumen tersedia untuk diunduh dari halaman ini.</p>@endif
+<details class="mt-4"><summary>Riwayat pengajuan dan keputusan</summary><ul class="list-unstyled pprk-history mt-2">@foreach(array_reverse($item->history ?? []) as $event)<li><strong>{{ $event['action'] }}</strong> · Versi {{ $event['revision'] }}<p>{{ $event['note'] }}</p><small class="text-secondary">{{ $event['actor'] }} · {{ config('superadmin.roles.'.$event['role']) }} · {{ $event['at'] }}</small></li>@endforeach</ul></details>
+</section>
+@empty<section class="k-panel text-center text-secondary py-5"><i class="bi bi-file-earmark-text fs-2"></i><p class="mt-3 mb-0">Belum ada pengajuan RPK untuk ditampilkan.</p></section>@endforelse
+{{ $items->links() }}
+@endsection

@@ -1,0 +1,8 @@
+@extends('department.layout')
+@section('title', 'Pengumuman')
+@section('content')
+<div class="k-heading"><div><div class="k-eyebrow">INFORMASI HIMSI</div><h1>Pengumuman</h1><p>Informasi umum dan Departemen {{ $departmentLabel }} · {{ $unread }} belum dibaca.</p></div></div>
+<form method="GET" class="k-panel d-flex flex-wrap gap-3 mb-4"><label class="visually-hidden" for="q">Cari pengumuman</label><input class="form-control w-auto" id="q" name="q" placeholder="Cari pengumuman" maxlength="120" value="{{ request('q') }}"><label class="visually-hidden" for="category">Kategori</label><select class="form-select w-auto" id="category" name="category"><option value="">Semua kategori</option>@foreach($categories as $category)<option @selected(request('category') === $category)>{{ $category }}</option>@endforeach</select><button class="btn btn-navy">Cari</button></form>
+<div class="row g-4">@forelse($items as $item)<div class="col-md-6"><article class="k-panel h-100"><div class="d-flex gap-2 mb-3"><span class="badge text-bg-light">{{ $item->payload['category'] }}</span>@unless(in_array($item->id, $readIds))<span class="badge text-bg-warning">Belum dibaca</span>@endunless</div><h2 class="fs-5">{{ $item->payload['title'] }}</h2><small>{{ $item->payload['date'] ?? '' }} · {{ $item->department ? $departmentLabel : 'Umum HIMSI' }}</small><p class="mt-3">{{ $item->payload['summary'] }}</p><a class="btn btn-outline-navy" href="{{ route('department.member.announcement', [$departmentKey, $item->id]) }}">Baca Selengkapnya</a></article></div>@empty<div class="col-12 k-panel k-empty"><p>Tidak ada pengumuman sesuai pencarian.</p></div>@endforelse</div>
+@include('department.pagination', ['items' => $items])
+@endsection

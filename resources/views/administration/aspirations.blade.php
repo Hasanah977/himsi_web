@@ -1,0 +1,6 @@
+@extends('administration.layout')
+@section('title', 'Aspirasi KBH — Advokasi')
+@section('content')
+@forelse($items as $item)<article class="admin-panel"><h2 class="h5">{{ $item->judul }}</h2><small>{{ $item->user?->name }} · {{ $item->status }}</small><p class="mt-3">{{ $item->isi }}</p>@if($item->lampiran_path)<a href="{{ route('administration.aspirations.file',$item) }}">Unduh Lampiran</a>@endif
+@if(!auth()->user()->isSuperAdmin())<form class="mt-3" method="POST" action="{{ route('administration.aspirations.respond',$item) }}">@csrf<label class="form-label" for="response-{{ $item->id }}">Tanggapan</label><textarea class="form-control mb-3" id="response-{{ $item->id }}" name="response" required maxlength="6000">{{ $item->response }}</textarea><label class="form-label" for="status-{{ $item->id }}">Status</label><select class="form-select mb-3" id="status-{{ $item->id }}" name="status"><option value="diproses">Diproses</option><option value="selesai" @selected($item->status==='selesai')>Selesai</option></select><button class="btn btn-navy" type="submit">Kirim Tanggapan</button></form>@else<p>{{ $item->response }}</p>@endif</article>@empty<div class="admin-panel">Belum ada aspirasi.</div>@endforelse{{ $items->links() }}
+@endsection

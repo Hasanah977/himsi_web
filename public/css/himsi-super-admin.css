@@ -1,0 +1,23 @@
+.super-admin-page .admin-topbar {
+    min-height: 66px;
+    padding: 10px 30px;
+    gap: 12px;
+    flex-wrap: nowrap;
+}
+.super-admin-page .admin-avatar {
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+    font-size: 19px;
+}
+.super-admin-page .admin-user { gap: 10px; line-height: 1.4; }
+.super-admin-page .admin-user strong { font-size: 13px; font-weight: 600; }
+.super-admin-page .admin-user small { font-size: 11px; }
+.admin-account-search { display: flex; align-items: end; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+.admin-account-search-field { flex: 1 1 260px; max-width: 520px; }
+.admin-account-search .form-label { font-size: 13px; margin-bottom: 8px; }
+.admin-account-search .input-group-text { background: #f5f7fb; color: #778197; }
+@media (max-width: 767px) {
+    .super-admin-page .admin-topbar { min-height: 60px; padding: 10px 16px; }
+    .admin-account-search-field { flex-basis: 100%; max-width: none; }
+}

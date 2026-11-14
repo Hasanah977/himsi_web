@@ -1,0 +1,6 @@
+@extends('administration.layout')
+@section('title', $title)
+@section('content')
+<div class="row g-4">@forelse($items as $item)<div class="col-md-6"><article class="admin-panel h-100">@if(!empty($item['image']))<img class="rounded-3 w-100 mb-3" style="height:200px;object-fit:cover" src="{{ \App\Models\PublicContent::imageUrl($item['image']) }}" alt="{{ $item['title'] }}">@endif<small>{{ $item['category'] ?? '' }} · {{ $item['date'] ?? '' }}</small><h2 class="h5 mt-2">{{ $item['title'] }}</h2><p>{{ $item['summary'] ?? '' }}</p><a class="btn btn-outline-navy" href="{{ route($detail,$item['slug']) }}">Baca Selengkapnya</a></article></div>@empty<div class="col-12"><div class="admin-panel">Belum ada informasi yang dipublikasikan.</div></div>@endforelse</div>
+@isset($activities)<h2 class="h5 mt-4">Kegiatan Departemen</h2><div class="row g-3">@forelse($activities as $activity)<div class="col-md-6"><article class="admin-panel"><small>{{ config('superadmin.departments.'.$activity->department) }}</small><h3 class="h5 mt-2">{{ $activity->title }}</h3><p>{{ $activity->starts_on?->format('d M Y') }} · {{ $activity->status }}</p><a href="{{ route('kbh.activity',$activity) }}" class="btn btn-outline-navy">Lihat Kegiatan</a></article></div>@empty<p>Belum ada kegiatan departemen yang disetujui.</p>@endforelse</div>@endisset
+@endsection

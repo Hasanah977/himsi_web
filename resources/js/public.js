@@ -1,0 +1,10 @@
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../css/app.css';
+import '../css/public-chrome.css';
+import '../css/public-motion.css';
+import 'bootstrap/js/dist/collapse';
+import 'bootstrap/js/dist/modal';
+import './public-interactions';
+import './public-chrome';
+import './public-gallery';

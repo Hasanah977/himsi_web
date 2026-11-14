@@ -1,0 +1,133 @@
+/* Public quotes and footer. */
+.public-site .site-nav { background: linear-gradient(110deg, #0c173c, #1b244d); padding: 13px 0; }
+
+.public-quotes {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: 48px 0 100px;
+    background: radial-gradient(ellipse at 85% 0, #182e60 0, transparent 65%), #101e48;
+    color: #fff;
+}
+.public-quotes::before,
+.public-quotes::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    width: 680px;
+    height: 460px;
+    border-radius: 50%;
+    background: linear-gradient(130deg, #d4c46b20, #afc5f303);
+    pointer-events: none;
+}
+.public-quotes::before { top: -330px; left: -370px; transform: rotate(-30deg); }
+.public-quotes::after { right: -390px; bottom: -290px; transform: rotate(-25deg); }
+.quote-slides { display: grid; max-width: 800px; margin: auto; }
+.quote-slide {
+    display: grid;
+    grid-area: 1 / 1;
+    grid-template-columns: 250px minmax(0, 1fr);
+    align-items: center;
+    gap: 36px;
+    width: 100%;
+    margin: 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: opacity .65s ease, transform .65s ease, visibility .65s;
+}
+.quote-slide.is-active { opacity: 1; visibility: visible; transform: none; }
+.quote-portrait { position: relative; width: 220px; height: 220px; margin: 15px auto; }
+.quote-portrait-frame {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border: 1px solid #ffe951;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #ffef25, #ffda00 75%);
+}
+.quote-portrait img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: center bottom; }
+.quote-orbit { position: absolute; top: 48%; left: -15%; width: 130%; height: 45%; border: 3px solid #ffdf00; border-top-color: transparent; border-right-color: #ffdf0050; border-radius: 50%; transform: rotate(7deg); }
+.quote-spark { position: absolute; top: -46px; right: -10px; width: 49px; height: 49px; color: #ffdf00; }
+.quote-copy { position: relative; min-width: 0; padding: 8px 0 8px 32px; }
+.quote-copy::before { content: ""; position: absolute; top: 9%; bottom: 4%; left: 0; width: 2px; background: linear-gradient(transparent, #ffdf00 30%, #ffdf00 65%, transparent); }
+.quote-symbol { display: block; height: 52px; color: #ffdf00; font: 700 86px/1 Georgia, serif; }
+.quote-copy blockquote { margin: 12px 0 23px; color: #fff; font-size: clamp(20px, 2vw, 26px); font-style: italic; line-height: 1.45; }
+.quote-rule { display: block; width: 76px; height: 3px; margin-bottom: 16px; background: #ffdf00; }
+.quote-copy strong { display: block; font-size: 22px; line-height: 1.35; }
+.quote-copy small { display: block; margin-top: 3px; color: #e2e8f6; font-size: 14px; line-height: 1.6; }
+
+.public-site .public-footer {
+    position: relative;
+    margin-top: 80px;
+    padding: 28px 0 24px;
+    background: radial-gradient(ellipse at 70% 100%, #10244e80, transparent 75%), #0b193f;
+    color: #f4f6ff;
+}
+.public-site .public-footer--home { margin-top: 0; }
+.footer-wave { position: absolute; top: -79px; left: 0; width: 100%; height: 80px; overflow: visible; pointer-events: none; }
+.public-site .public-footer .footer-container { max-width: 1160px; padding-inline: 24px; }
+.footer-grid { display: grid; grid-template-columns: 1.5fr .85fr 1.2fr .65fr; gap: clamp(20px, 3vw, 36px); align-items: start; }
+.public-site .footer-brand { margin-bottom: 24px; padding-left: 16px; border-left: 4px solid #ffdf00; font-size: 26px; }
+.public-site .footer-brand small { margin-top: 7px; color: #f4f6ff; font-size: 11px; letter-spacing: .22em; }
+.public-site .public-footer p,
+.public-site .public-footer address,
+.public-site .public-footer li a { color: #e7ebf6; font-size: 13px; line-height: 1.7; }
+.public-site .public-footer p { margin-bottom: 0; }
+.public-site .public-footer address { margin-bottom: 22px; }
+.public-site .public-footer h3 { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; font-size: 17px; letter-spacing: -.3px; }
+.public-site .public-footer h3::before { content: ""; flex: 0 0 20px; height: 3px; background: #ffdf00; }
+.public-site .footer-links ul { margin: -8px 0 0; }
+.public-site .footer-links a { display: flex; justify-content: space-between; align-items: center; gap: 15px; padding: 8px 0; border-bottom: 1px solid #c1cce92a; }
+.public-site .footer-links .bi { color: #ffdf00; font-size: 15px; }
+.public-site .footer-links a:hover { color: #ffdf00; transform: translateX(3px); }
+.footer-emblem { display: grid; place-items: center; min-height: 120px; padding-left: 22px; border-left: 1px solid #a0b7e51c; }
+.public-site .public-footer .footer-logo { width: 110px; max-width: 100%; }
+.public-site .public-footer .footer-bottom { margin-top: 30px; padding-top: 18px; border-top: 1px solid #c1cce961; font-size: 14px; }
+.footer-motto { font-style: italic; text-align: right; }
+
+@media (min-width: 768px) and (max-width: 1199.98px) {
+    .quote-slide { grid-template-columns: 230px minmax(0, 1fr); gap: 28px; }
+    .quote-portrait { width: 210px; height: 210px; }
+    .quote-copy { padding-left: 35px; }
+    .footer-grid { grid-template-columns: 1.3fr 1fr 1.2fr; gap: 32px; }
+    .footer-emblem { grid-column: 1 / -1; min-height: 0; padding: 0; border: 0; }
+    .public-site .public-footer .footer-logo { width: 110px; }
+}
+
+@media (max-width: 767.98px) {
+    .public-quotes { padding: 44px 0 95px; }
+    .quote-slide { grid-template-columns: minmax(0, 1fr); align-content: start; gap: 25px; padding-inline: 16px; }
+    .quote-portrait { width: 175px; height: 175px; margin: 15px auto 0; }
+    .quote-spark { top: -31px; right: -11px; width: 38px; height: 38px; }
+    .quote-copy { padding: 0; text-align: center; }
+    .quote-copy::before { display: none; }
+    .quote-symbol { height: 53px; font-size: 88px; }
+    .quote-copy blockquote { margin: 10px 0 20px; font-size: 20px; }
+    .quote-rule { margin: 0 auto 16px; width: 60px; }
+    .quote-copy strong { font-size: 21px; }
+    .quote-copy small { font-size: 15px; }
+    .public-site .public-footer { padding: 25px 0 28px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px 25px; }
+    .footer-about { grid-column: 1 / -1; }
+    .public-site .footer-brand { font-size: 28px; margin-bottom: 20px; }
+    .public-site .public-footer h3 { gap: 7px; font-size: 17px; margin-bottom: 20px; }
+    .public-site .public-footer h3::before { flex-basis: 16px; }
+    .public-site .public-footer p,
+    .public-site .public-footer address,
+    .public-site .public-footer li a { font-size: 14px; }
+    .footer-emblem { grid-column: 1 / -1; padding: 0; min-height: 0; border: 0; }
+    .public-site .public-footer .footer-logo { width: 110px; }
+    .public-site .public-footer .footer-bottom { flex-direction: column; align-items: center; margin-top: 32px; padding-top: 20px; font-size: 12px; text-align: center; }
+    .footer-motto { text-align: center; }
+}
+@media (max-width: 379.98px) {
+    .footer-grid { grid-template-columns: 1fr; }
+    .footer-about, .footer-emblem { grid-column: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .quote-slide { transition: none; }
+    .quote-slide { transform: none; }
+}

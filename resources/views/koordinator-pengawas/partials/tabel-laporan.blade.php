@@ -1,0 +1,4 @@
+<div class="table-responsive"><table class="table pg-table"><thead><tr><th>Tanggal</th><th>Nama Kegiatan</th><th>Judul Laporan</th><th>Departemen</th><th>Status</th><th>Aksi</th></tr></thead><tbody>
+@forelse($laporans as $laporan)<tr><td>{{ $laporan->created_at->format('d/m/Y') }}</td><td>{{ $laporan->nama_kegiatan }}</td><td>{{ $laporan->judul }}</td><td>{{ $laporan->departemen ?: '—' }}</td><td><span class="pg-status">{{ ucfirst(str_replace('_',' ',$laporan->status)) }}</span></td><td><a class="btn btn-sm btn-outline-primary" href="{{ route('pengawas.laporan.show',$laporan) }}">Detail & Audit</a></td></tr>
+@empty<tr><td colspan="6" class="text-center text-muted py-4">Belum ada laporan untuk ditampilkan.</td></tr>@endforelse
+</tbody></table></div><div class="mt-3">{{ $laporans->links() }}</div>

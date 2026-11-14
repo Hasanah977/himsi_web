@@ -1,0 +1,8 @@
+@extends('administration.layout')
+@section('title', 'Monitoring Anggaran')
+@push('styles')<link rel="stylesheet" href="{{ asset('css/himsi-finance.css') }}">@endpush
+@section('content')
+<div class="finance-page">
+<div class="finance-heading"><div><h2>Anggaran Departemen</h2><p>Alokasi mengikuti persetujuan Ketua. Pemakaian bersih adalah pencairan dikurangi pengembalian.</p></div></div><div class="d-flex gap-2 mb-3">@foreach(['xlsx'=>'Excel','pdf'=>'PDF'] as $format=>$label)<a class="btn btn-outline-navy" href="{{ route('finance.export',['format'=>$format,'scope'=>'monitoring']) }}">Ekspor {{ $label }}</a>@endforeach</div><div class="finance-departments">@foreach($rows as $row)<article class="finance-panel"><span class="finance-stat-icon"><i class="bi bi-diagram-3"></i></span><h2>{{ $row['name'] }}</h2>@foreach(['allocated'=>'Alokasi disetujui','paid'=>'Dana dicairkan','returned'=>'Dana dikembalikan','used'=>'Pemakaian bersih','remaining'=>'Sisa alokasi'] as $key=>$label)<div class="finance-category"><span>{{ $label }}</span><strong>Rp {{ number_format($row[$key],0,',','.') }}</strong></div>@endforeach<div class="progress mt-3" role="progressbar" aria-label="Persentase penggunaan {{ $row['name'] }}" aria-valuenow="{{ $row['allocated']?round($row['used']/$row['allocated']*100):0 }}" aria-valuemin="0" aria-valuemax="100"><div class="progress-bar" style="width:{{ $row['allocated']?min(100,$row['used']/$row['allocated']*100):0 }}%"></div></div><small>{{ $row['allocated']?round($row['used']/$row['allocated']*100,1):0 }}% digunakan</small></article>@endforeach</div><p class="text-secondary mt-3">Pengeluaran tidak terduga organisasi dicatat terpisah dan tidak dibebankan ke alokasi departemen.</p>
+</div>
+@endsection

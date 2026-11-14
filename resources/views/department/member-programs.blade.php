@@ -1,0 +1,8 @@
+@extends('department.layout')
+@section('title', 'Program Kerja')
+@section('content')
+<div class="k-heading"><div><div class="k-eyebrow">{{ $departmentLabel }}</div><h1>Program Kerja</h1><p>Ikuti jadwal dan perkembangan kegiatan departemen.</p></div></div>
+<form class="k-panel d-flex flex-wrap gap-3 mb-4" method="GET"><label class="visually-hidden" for="q">Cari program</label><input class="form-control w-auto" id="q" name="q" placeholder="Cari program kerja" maxlength="120" value="{{ request('q') }}"><label class="visually-hidden" for="status">Status</label><select class="form-select w-auto" id="status" name="status"><option value="">Semua status</option>@foreach(['approved' => 'Disetujui', 'running' => 'Berjalan', 'completed' => 'Selesai'] as $key => $label)<option value="{{ $key }}" @selected(request('status') === $key)>{{ $label }}</option>@endforeach</select><button class="btn btn-navy">Terapkan</button></form>
+<section class="k-panel">@forelse($programs as $program)<a class="o-program-progress" href="{{ route('department.member.program', [$departmentKey, $program->id]) }}"><div><strong>{{ $program->title }}</strong>@include('department.status', ['status' => $program->status])</div><p>{{ $program->location }} · {{ $program->starts_on->format('d M Y') }} – {{ $program->ends_on->format('d M Y') }}</p><progress class="k-progress" value="{{ $program->progress }}" max="100" aria-label="Kemajuan {{ $program->title }}"></progress><small>{{ $program->done_count }}/{{ $program->tasks_count }} tugas divalidasi · {{ $program->progress }}%</small></a>@empty<div class="k-empty"><p>Tidak ada program kerja sesuai filter.</p></div>@endforelse</section>
+@include('department.pagination', ['items' => $programs])
+@endsection

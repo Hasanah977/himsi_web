@@ -1,0 +1,1 @@
+<svg class="public-wave" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true"><path fill="#ffda00" d="M0 38C260-35 400 85 770 44S1240-18 1440 16V80H0Z"/><path fill="#f6f8fc" d="M0 50C260-16 400 94 770 54S1240-2 1440 29V80H0Z"/></svg>

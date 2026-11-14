@@ -1,0 +1,621 @@
+
+
+        :root {
+            --primary: #172454;
+            --sidebar: #101b4c;
+            --background: #f5f7fc;
+            --sidebar-width: 265px;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--background);
+            color: var(--primary);
+        }
+
+        .sekretaris-sidebar {
+            position: fixed;
+            inset: 0 auto 0 0;
+            width: var(--sidebar-width);
+            background: var(--sidebar);
+            color: white;
+            padding: 24px 16px;
+            overflow-y: auto;
+            z-index: 1050;
+            transition: transform .3s ease;
+        }
+
+        .sekretaris-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 12px 26px;
+            border-bottom: 1px solid rgba(255,255,255,.15);
+            margin-bottom: 24px;
+        }
+
+        .sekretaris-brand-icon {
+            width: 44px;
+            height: 44px;
+            display: grid;
+            place-items: center;
+            background: white;
+            color: var(--primary);
+            border-radius: 12px;
+            font-size: 25px;
+            font-weight: 800;
+        }
+
+        .sekretaris-brand strong {
+            display: block;
+            font-size: 18px;
+        }
+
+        .sekretaris-brand small {
+            color: #cbd5e1;
+            font-size: 12px;
+        }
+
+        .sekretaris-menu-title {
+            color: #aebce0;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            padding: 0 14px;
+            margin-bottom: 12px;
+        }
+
+        .sekretaris-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .sekretaris-menu a,
+        .sekretaris-logout {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            width: 100%;
+            padding: 13px 14px;
+            border: none;
+            border-radius: 10px;
+            background: transparent;
+            color: #dce4f7;
+            text-decoration: none;
+            text-align: left;
+            font-size: 14px;
+            transition: background .2s;
+        }
+
+        .sekretaris-menu a i,
+        .sekretaris-logout i {
+            font-size: 19px;
+        }
+
+        .sekretaris-menu a:hover,
+        .sekretaris-menu a.active,
+        .sekretaris-logout:hover {
+            background: rgba(255,255,255,.14);
+            color: white;
+        }
+
+        .sekretaris-menu a.active {
+            font-weight: bold;
+            box-shadow: inset 3px 0 0 white;
+        }
+
+        .sekretaris-main {
+            margin-left: var(--sidebar-width);
+            min-height: 100vh;
+        }
+
+        .sekretaris-topbar {
+            min-height: 78px;
+            background: white;
+            border-bottom: 1px solid #e8edf5;
+            padding: 16px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .sekretaris-topbar h1 {
+            font-size: 21px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .sekretaris-topbar p {
+            font-size: 12px;
+            color: #64748b;
+            margin: 4px 0 0;
+        }
+
+        .sekretaris-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sekretaris-avatar {
+            width: 42px;
+            height: 42px;
+            background: #e9eefc;
+            color: var(--primary);
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-size: 22px;
+        }
+
+        .sekretaris-user-name {
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .sekretaris-user-role {
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        .sekretaris-content {
+            padding: 30px;
+            max-width: 1600px;
+            margin: auto;
+        }
+
+        .sekretaris-panel {
+            background: white;
+            border: 1px solid #edf0f7;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 18px rgba(16,27,76,.04);
+        }
+
+        .sekretaris-toggle {
+            display: none;
+            border: none;
+            background: transparent;
+            color: var(--primary);
+            font-size: 26px;
+        }
+
+        .sekretaris-overlay {
+            display: none;
+        }
+
+        @media (max-width: 991px) {
+            .sekretaris-sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sekretaris-sidebar.open {
+                transform: translateX(0);
+            }
+
+            .sekretaris-main {
+                margin-left: 0;
+            }
+
+            .sekretaris-toggle {
+                display: inline-flex;
+            }
+
+            .sekretaris-overlay.show {
+                display: block;
+                position: fixed;
+                inset: 0;
+                background: rgba(0,0,0,.45);
+                z-index: 1040;
+            }
+
+            .sekretaris-content {
+                padding: 22px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .sekretaris-topbar {
+                padding: 14px 16px;
+            }
+
+            .sekretaris-topbar h1 {
+                font-size: 17px;
+            }
+
+            .sekretaris-user-name,
+            .sekretaris-user-role {
+                display: none;
+            }
+
+            .sekretaris-content {
+                padding: 16px;
+            }
+
+            .sekretaris-panel {
+                padding: 18px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .sekretaris-content {
+                padding: 10px;
+            }
+        }
+            /* Efek menu aktif Sekretaris Umum */
+        .sekretaris-menu a.active {
+            background: #facc15;
+            color: #172454;
+            font-weight: 700;
+            box-shadow: 0 4px 14px rgba(250, 204, 21, .25);
+        }
+
+        .sekretaris-menu a.active:hover {
+            background: #eab308;
+            color: #172454;
+        }
+
+        .sekretaris-menu a:active {
+            transform: scale(.97);
+        }
+
+        .sekretaris-menu a {
+            transition: background .2s ease, color .2s ease, transform .15s ease;
+        }
+    
+
+    .sekretaris-main a.btn,
+    .sekretaris-main button,
+    .sekretaris-menu a,
+    .sekretaris-logout,
+    .surat-btn-primary,
+    .surat-action {
+        transition:
+            background-color .2s ease,
+            color .2s ease,
+            border-color .2s ease,
+            transform .2s ease,
+            box-shadow .2s ease !important;
+    }
+
+    .sekretaris-main a.btn:hover,
+    .sekretaris-main button:hover,
+    .surat-btn-primary:hover,
+    .surat-action:hover {
+        transform: translateY(-2px);
+    }
+
+    .sekretaris-main a.btn:active,
+    .sekretaris-main button:active,
+    .sekretaris-menu a:active,
+    .sekretaris-logout:active,
+    .surat-btn-primary:active,
+    .surat-action:active {
+        background-color: #facc15 !important;
+        border-color: #facc15 !important;
+        color: #101b4c !important;
+        transform: scale(.96) !important;
+    }
+
+    .sekretaris-main .sekretaris-yellow-click,
+    .sekretaris-menu .sekretaris-yellow-click,
+    .sekretaris-logout.sekretaris-yellow-click {
+        background-color: #facc15 !important;
+        border-color: #facc15 !important;
+        color: #101b4c !important;
+        box-shadow: 0 0 0 4px rgba(250, 204, 21, .22) !important;
+    }
+
+    .sekretaris-main a:focus-visible,
+    .sekretaris-main button:focus-visible,
+    .sekretaris-menu a:focus-visible,
+    .sekretaris-logout:focus-visible {
+        outline: 3px solid #facc15;
+        outline-offset: 3px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .sekretaris-main a.btn,
+        .sekretaris-main button,
+        .sekretaris-menu a,
+        .sekretaris-logout,
+        .surat-btn-primary,
+        .surat-action {
+            transition: none !important;
+        }
+    }
+
+
+        :root {
+            --primary: #172454;
+            --sidebar: #101b4c;
+            --background: #f5f7fc;
+            --sidebar-width: 265px;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--background);
+            color: var(--primary);
+        }
+
+        .ketua-sidebar {
+            position: fixed;
+            inset: 0 auto 0 0;
+            width: var(--sidebar-width);
+            background: var(--sidebar);
+            color: white;
+            padding: 24px 16px;
+            overflow-y: auto;
+            z-index: 1050;
+            transition: transform .3s ease;
+        }
+
+        .ketua-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 12px 26px;
+            border-bottom: 1px solid rgba(255,255,255,.15);
+            margin-bottom: 24px;
+        }
+
+        .ketua-brand-icon {
+            width: 44px;
+            height: 44px;
+            display: grid;
+            place-items: center;
+            background: white;
+            color: var(--primary);
+            border-radius: 12px;
+            font-size: 25px;
+            font-weight: 800;
+        }
+
+        .ketua-brand strong {
+            display: block;
+            font-size: 18px;
+        }
+
+        .ketua-brand small {
+            color: #cbd5e1;
+            font-size: 12px;
+        }
+
+        .ketua-menu-title {
+            color: #aebce0;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            padding: 0 14px;
+            margin-bottom: 12px;
+        }
+
+        .ketua-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .ketua-menu a,
+        .ketua-logout {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            width: 100%;
+            padding: 13px 14px;
+            border: none;
+            border-radius: 10px;
+            background: transparent;
+            color: #dce4f7;
+            text-decoration: none;
+            text-align: left;
+            font-size: 14px;
+            transition: background .2s;
+        }
+
+        .ketua-menu a i,
+        .ketua-logout i {
+            font-size: 19px;
+        }
+
+        .ketua-menu a:hover,
+        .ketua-menu a.active,
+        .ketua-logout:hover {
+            background: rgba(255,255,255,.14);
+            color: white;
+        }
+
+        .ketua-menu a.active {
+            font-weight: bold;
+            box-shadow: inset 3px 0 0 white;
+        }
+
+        .ketua-main {
+            margin-left: var(--sidebar-width);
+            min-height: 100vh;
+        }
+
+        .ketua-topbar {
+            min-height: 78px;
+            background: white;
+            border-bottom: 1px solid #e8edf5;
+            padding: 16px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .ketua-topbar h1 {
+            font-size: 21px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .ketua-topbar p {
+            font-size: 12px;
+            color: #64748b;
+            margin: 4px 0 0;
+        }
+
+        .ketua-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .ketua-avatar {
+            width: 42px;
+            height: 42px;
+            background: #e9eefc;
+            color: var(--primary);
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-size: 22px;
+        }
+
+        .ketua-user-name {
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .ketua-user-role {
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        .ketua-content {
+            padding: 30px;
+            max-width: 1600px;
+            margin: auto;
+        }
+
+        .ketua-panel {
+            background: white;
+            border: 1px solid #edf0f7;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 18px rgba(16,27,76,.04);
+        }
+
+        .ketua-toggle {
+            display: none;
+            border: none;
+            background: transparent;
+            color: var(--primary);
+            font-size: 26px;
+        }
+
+        .ketua-overlay {
+            display: none;
+        }
+
+        @media (max-width: 991px) {
+            .ketua-sidebar {
+                transform: translateX(-100%);
+            }
+
+            .ketua-sidebar.open {
+                transform: translateX(0);
+            }
+
+            .ketua-main {
+                margin-left: 0;
+            }
+
+            .ketua-toggle {
+                display: inline-flex;
+            }
+
+            .ketua-overlay.show {
+                display: block;
+                position: fixed;
+                inset: 0;
+                background: rgba(0,0,0,.45);
+                z-index: 1040;
+            }
+
+            .ketua-content {
+                padding: 22px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .ketua-topbar {
+                padding: 14px 16px;
+            }
+
+            .ketua-topbar h1 {
+                font-size: 17px;
+            }
+
+            .ketua-user-name,
+            .ketua-user-role {
+                display: none;
+            }
+
+            .ketua-content {
+                padding: 16px;
+            }
+
+            .ketua-panel {
+                padding: 18px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .ketua-content {
+                padding: 10px;
+            }
+        }
+            /* Efek menu aktif Ketua Umum */
+        .ketua-menu a.active {
+            background: #facc15;
+            color: #172454;
+            font-weight: 700;
+            box-shadow: 0 4px 14px rgba(250, 204, 21, .25);
+        }
+
+        .ketua-menu a.active:hover {
+            background: #eab308;
+            color: #172454;
+        }
+
+        .ketua-menu a:active {
+            transform: scale(.97);
+        }
+
+        .ketua-menu a {
+            transition: background .2s ease, color .2s ease, transform .15s ease;
+        }
+    
+
+:root{--navy:#101b4c;--deep:#172454;--yellow:#facc15;--bg:#f5f7fc}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--deep);font-family:Arial,Helvetica,sans-serif}
+a{text-decoration:none}.pg-sidebar{background:var(--navy);position:fixed;inset:0 auto 0 0;width:265px;color:white;padding:22px 14px;overflow-y:auto;z-index:1051;transition:transform .25s}
+.pg-brand{display:flex;align-items:center;gap:12px;padding:7px 9px 22px;border-bottom:1px solid #ffffff29;margin-bottom:20px}
+.pg-logo{width:45px;height:45px;object-fit:contain;background:#fff;border-radius:10px;padding:3px}
+.pg-brand strong{font-size:15px;line-height:1.35}.pg-brand small{font-size:11px;color:#cbd5e1}
+.pg-menu{display:flex;flex-direction:column;gap:5px}.pg-menu a{display:flex;align-items:center;gap:11px;color:#e2e8f0;padding:12px 11px;border-radius:10px;font-size:13.5px;transition:.2s}
+.pg-menu a i{font-size:19px;flex:none}.pg-menu a:hover{background:#ffffff20;color:#fff}.pg-menu a.active,.pg-menu a.active i{background:var(--yellow);color:var(--deep)!important;font-weight:700}
+.pg-main{margin-left:265px;min-height:100vh}.pg-head{min-height:79px;background:white;border-bottom:1px solid #e3e9f3;padding:13px 28px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.pg-head h1{font-size:20px;margin:0;font-weight:750}.pg-head small{color:#64748b}.pg-head-right{display:flex;align-items:center;gap:14px}.pg-content{padding:26px;max-width:1600px;margin:auto}
+.pg-card{background:#fff;border:1px solid #e6eaf3;border-radius:15px;padding:22px;box-shadow:0 4px 16px #101b4c0a}
+.pg-num{font-size:30px;font-weight:800;color:var(--deep)}.pg-muted{color:#64748b;font-size:13px}.pg-btn{background:#172454;color:white;border-radius:9px;border:0;padding:9px 15px;display:inline-block}.pg-btn:hover{background:#253b86;color:white}
+.pg-toggle{display:none;background:transparent;color:var(--deep);border:0;font-size:27px}.pg-overlay{display:none}
+.pg-name{font-size:13px;font-weight:700}.pg-avatar{width:40px;height:40px;border-radius:50%;background:#ecf0fb;display:grid;place-items:center}
+.pg-table{min-width:690px}.pg-table th{color:#475569;background:#f6f8fc;font-size:12px;font-weight:700}.pg-table td{font-size:13px;vertical-align:middle}
+.pg-note{font-size:12px;color:#64748b}.pg-status{font-size:11px;font-weight:700;padding:5px 9px;border-radius:30px;background:#e8eef8;color:#172454}
+@media(max-width:991px){.pg-sidebar{transform:translateX(-102%)}.pg-sidebar.open{transform:translateX(0)}.pg-main{margin-left:0}.pg-toggle{display:inline-block}.pg-overlay.show{display:block;position:fixed;inset:0;background:#11182770;z-index:1050}.pg-content{padding:18px}}
+@media(max-width:767px){.pg-head{padding:12px 15px}.pg-head h1{font-size:17px}.pg-name{display:none}.pg-content{padding:12px}.pg-card{padding:16px}.pg-brand strong{font-size:14px}}
+@media(max-width:360px){.pg-content{padding:9px}.pg-head{padding:10px}.pg-card{padding:12px}}

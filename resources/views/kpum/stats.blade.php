@@ -1,0 +1,5 @@
+<div class="k-stats">
+    <article class="k-stat"><span class="k-stat-icon purple"><i class="bi bi-person-check" aria-hidden="true"></i></span><div><strong>{{ $tally->count() }} <small>Kandidat</small></strong><p>Lolos verifikasi</p></div></article>
+    <article class="k-stat"><span class="k-stat-icon green"><i class="bi bi-check2-circle" aria-hidden="true"></i></span><div><strong><span data-k-stat="used">{{ $used }}</span> <small>/ <span data-k-stat="eligible">{{ $eligible }}</span></small></strong><p>Sudah memilih · <span data-k-stat="percent">{{ $percent }}</span>%</p></div><progress class="k-progress" data-k-participation max="100" value="{{ $percent }}" aria-label="Partisipasi pemilih"></progress></article>
+    <article class="k-stat"><span class="k-stat-icon amber"><i class="bi bi-clock-history" aria-hidden="true"></i></span><div><strong><span data-k-stat="remaining">{{ max(0, $eligible - $used) }}</span> <small>Orang</small></strong><p>Belum menggunakan hak suara</p></div></article>
+</div>

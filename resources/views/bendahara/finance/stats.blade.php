@@ -1,0 +1,4 @@
+<div class="finance-stats">
+@foreach(['balance'=>['Saldo Kas','wallet2'],'income'=>['Total Pemasukan','arrow-down-left'],'expense'=>['Total Pengeluaran','arrow-up-right'],'ratio'=>['Rasio Pengeluaran','pie-chart']] as $key=>[$text,$icon])
+<article class="finance-stat"><span class="finance-stat-icon"><i class="bi bi-{{ $icon }}" aria-hidden="true"></i></span><span>{{ $text }}</span><strong>{{ $key==='ratio' ? $summary[$key].'%' : 'Rp '.number_format($summary[$key],0,',','.') }}</strong><small>{{ $start ?? config('finance.start') }} — {{ $end ?? config('finance.end') }}</small></article>
+@endforeach</div>

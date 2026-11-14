@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "prezekc-hemat-token": {
+      "source": "Hasanah977/prezekc-hemat-token",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "9c9cdaee06f5181cbc3ea26de51b3ef25dc768873e25d98ca3943f5691af4472"
+    }
+  }
+}

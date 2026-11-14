@@ -1,0 +1,1 @@
+<span class="o-status {{ $status }}">{{ config('department.'.($kind ?? 'program').'_statuses')[$status] ?? $status }}</span>

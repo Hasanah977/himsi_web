@@ -1,0 +1,101 @@
+/* One navigation theme for every authenticated workspace. */
+body :is(.admin-shell, .k-shell) > :is(aside.admin-sidebar, aside.k-sidebar).offcanvas-lg {
+    --bs-offcanvas-width: min(280px, 90vw);
+    background: linear-gradient(180deg, #061a3be8 0%, #15335ad9 48%, #071c3be8 100%), var(--sidebar-photo, url('../images/himsi/sidebar-background.webp')) center / cover no-repeat !important;
+    color: #fff;
+    border-right: 1px solid #9cb9dc55;
+    box-shadow: 6px 0 24px #0a214212;
+}
+body :is(aside.admin-sidebar, aside.k-sidebar) > .offcanvas-body {
+    padding: 20px 16px !important;
+    scrollbar-width: thin;
+    scrollbar-color: #91a4cf #0a2045;
+}
+body :is(aside.admin-sidebar, aside.k-sidebar) .offcanvas-body::-webkit-scrollbar { width: 7px; }
+body :is(aside.admin-sidebar, aside.k-sidebar) .offcanvas-body::-webkit-scrollbar-track { background: #0a2045; }
+body :is(aside.admin-sidebar, aside.k-sidebar) .offcanvas-body::-webkit-scrollbar-thumb { background: #91a4cf; border: 1px solid #0a2045; border-radius: 20px; }
+body :is(aside.admin-sidebar, aside.k-sidebar) .sidebar-heading { padding: 0; margin-bottom: 23px; border: 0; gap: 10px; }
+body :is(aside.admin-sidebar, aside.k-sidebar) :is(.admin-brand, .k-brand) { padding: 0; gap: 12px; color: #fff; border: 0; font-size: 28px; font-weight: 800; line-height: 1.2; }
+body :is(aside.admin-sidebar, aside.k-sidebar) :is(.admin-brand, .k-brand) img { width: 50px; height: 50px; flex: 0 0 50px; object-fit: contain; }
+body :is(aside.admin-sidebar, aside.k-sidebar) .admin-brand-name { font-size: 28px; }
+body :is(aside.admin-sidebar, aside.k-sidebar) :is(.admin-brand, .k-brand) small { margin-top: 5px; color: #baccec; font-size: 12px; font-weight: 500; line-height: 1.4; letter-spacing: 0; }
+body :is(aside.admin-sidebar, aside.k-sidebar) .sidebar-toggle { flex: 0 0 32px; width: 32px; height: 32px; border: 1px solid #a5bfdf80; border-radius: 10px; background: #e7f1ff0b; box-shadow: inset 0 1px 1px #fff2; font-size: 18px; }
+body :is(aside.admin-sidebar, aside.k-sidebar) nav { padding: 0; }
+body :is(aside.admin-sidebar, aside.k-sidebar) :is(.admin-menu-label, .k-nav-label) { display: flex; align-items: center; gap: 14px; margin: 20px 7px 12px; padding: 0; color: #c1d2f3; font-size: 11px; line-height: 1.6; font-weight: 750; letter-spacing: 1.8px; }
+body :is(aside.admin-sidebar, aside.k-sidebar) :is(.admin-menu-label, .k-nav-label)::after { content: ''; flex: 1; min-width: 20px; height: 1px; background: #c6d9f472; }
+body :is(aside.admin-sidebar, aside.k-sidebar) :is(.admin-nav-link, .k-nav, .admin-role-list > a, .admin-menu-group > summary, .admin-sidebar-bottom > a, .admin-sidebar-bottom button) {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    width: 100%;
+    min-height: 36px;
+    margin: 5px 0;
+    padding: 7px 11px;
+    border: 1px solid #c7ddfa55;
+    border-radius: 22px;
+    background: linear-gradient(120deg, #dbeaff2b, #b6d2ff20);
+    color: #f9fbff;
+    box-shadow: inset 0 1px 1px #fff2, 0 3px 7px #06162d12;
+    font-size: 12px;
+    line-height: 1.45;
+    font-weight: 600;
+    text-align: left;
+    text-decoration: none;
+    transition: background .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+body :is(aside.admin-sidebar, aside.k-sidebar) :is(.admin-nav-link, .k-nav, .admin-sidebar-bottom > a, .admin-sidebar-bottom button)::after {
+    content: '';
+    flex: 0 0 7px;
+    width: 7px;
+    height: 7px;
+    margin-left: auto;
+    border-top: 1.5px solid currentColor;
+    border-right: 1.5px solid currentColor;
+    transform: rotate(45deg);
+}
+body :is(aside.admin-sidebar, aside.k-sidebar) :is(.sidebar-item-icon, .admin-nav-link > .bi, .k-nav > .bi, summary > .bi:first-child) { flex: 0 0 18px; width: 18px; font-size: 17px; line-height: 1; color: inherit; text-align: center; }
+body :is(aside.admin-sidebar, aside.k-sidebar) :is(.admin-nav-link, .k-nav, .admin-menu-group > summary, .admin-sidebar-bottom > a, .admin-sidebar-bottom button):hover { background: #c5dcff45; color: #fff; border-color: #deecffa0; }
+body :is(aside.admin-sidebar, aside.k-sidebar) :is(.admin-nav-link.active, .k-nav.active, .admin-role-list > a.active, a[aria-current="page"]:not(.admin-submenu a)) {
+    border-color: #fff6d6;
+    border-radius: 15px;
+    background: linear-gradient(110deg, #fffdf3, #fff9e9) !important;
+    color: #0b204c !important;
+    box-shadow: inset 6px 0 #ffda00;
+    font-weight: 750;
+}
+body :is(aside.admin-sidebar, aside.k-sidebar) :is(.admin-nav-link.active, .k-nav.active, a[aria-current="page"]):not(.admin-submenu a)::after { flex-basis: 10px; width: 10px; height: 10px; border: 0; border-radius: 50%; background: #ffda00; transform: none; }
+body :is(aside.admin-sidebar, aside.k-sidebar) .admin-menu-group { margin: 8px 0; padding: 0; border: 1px solid #c7ddfa66; border-radius: 20px; background: #b4cfff0c; box-shadow: inset 0 1px 1px #fff1; }
+body :is(aside.admin-sidebar, aside.k-sidebar) .admin-menu-group > summary { width: calc(100% + 2px); margin: -1px -1px 0; cursor: pointer; list-style: none; }
+body :is(aside.admin-sidebar, aside.k-sidebar) .admin-menu-group > summary::-webkit-details-marker { display: none; }
+body :is(aside.admin-sidebar, aside.k-sidebar) .admin-menu-group > summary > span { flex: 1; min-width: 0; }
+body :is(aside.admin-sidebar, aside.k-sidebar) .admin-menu-group > summary > .bi:last-child:not(.sidebar-item-icon) { flex: 0 0 16px; width: 16px; font-size: 15px; transition: transform .2s ease; }
+body :is(aside.admin-sidebar, aside.k-sidebar) .admin-menu-group[open] > summary > .bi:last-child:not(.sidebar-item-icon) { transform: rotate(180deg); }
+body :is(aside.admin-sidebar, aside.k-sidebar) .admin-submenu { position: relative; display: grid; gap: 2px; margin: 7px 8px 12px 37px; padding: 0 0 0 9px; border: 0; }
+body :is(aside.admin-sidebar, aside.k-sidebar) .admin-submenu::before { content: ''; position: absolute; left: -9px; top: 19px; bottom: 19px; width: 2px; background: #ffda00; }
+body :is(aside.admin-sidebar, aside.k-sidebar) .admin-submenu a { position: relative; display: flex; align-items: center; gap: 11px; min-height: 38px; margin: 0; padding: 7px 9px; border: 1px solid transparent; border-radius: 14px; background: transparent; color: #fff; font-size: 12px; font-weight: 500; line-height: 1.5; box-shadow: none; }
+body :is(aside.admin-sidebar, aside.k-sidebar) .admin-submenu a::before { content: ''; position: absolute; top: calc(50% - 4px); left: -23px; width: 8px; height: 8px; border-radius: 50%; background: #ffda00; }
+body :is(aside.admin-sidebar, aside.k-sidebar) .admin-submenu a:is(.active, :hover, [aria-current="page"]) { background: #9aaff34d !important; color: #fff !important; border: 1px solid #c4d4ff55 !important; border-radius: 14px; box-shadow: inset 0 1px 1px #fff2; }
+body :is(aside.admin-sidebar, aside.k-sidebar) .admin-submenu .sidebar-item-icon { flex-basis: 20px; width: 20px; font-size: 18px; }
+body :is(aside.admin-sidebar, aside.k-sidebar) :is(.admin-sidebar-bottom, .k-sidebar-foot) { display: grid; gap: 0; margin-top: 20px; padding: 12px 0 0; border-top: 1px solid #bfd2ec65; }
+body :is(aside.admin-sidebar, aside.k-sidebar) .k-sidebar-note { padding: 8px 5px 14px; color: #c1d2ed; }
+body :is(aside.admin-sidebar, aside.k-sidebar) .workspace-switch { margin: 0 0 18px; padding: 12px; border-color: #c7ddfa40; border-radius: 15px; background: #c9e2ff12; }
+body :is(aside.admin-sidebar, aside.k-sidebar) .o-department { margin: 0 0 18px; padding: 12px; border-radius: 14px; border: 1px solid #c7ddfa33; background: #c9e2ff0c; color: #e3edff; }
+body :is(aside.admin-sidebar, aside.k-sidebar) :is(a, button, summary):focus-visible { outline: 2px solid #ffda00 !important; outline-offset: 3px; }
+@media (min-width: 992px) {
+    body:is(.admin-page, .kpum-page) :is(.admin-shell, .k-shell).sidebar-shell { --sidebar-expanded-width: 270px; }
+    body:is(.admin-page, .kpum-page) :is(.admin-shell, .k-shell).sidebar-collapsed { grid-template-columns: 68px minmax(0, 1fr); }
+    body .sidebar-collapsed :is(aside.admin-sidebar, aside.k-sidebar) > .offcanvas-body { padding: 16px 11px !important; }
+    body .sidebar-collapsed :is(aside.admin-sidebar, aside.k-sidebar) .sidebar-heading { gap: 10px; margin-bottom: 16px; }
+    body .sidebar-collapsed :is(aside.admin-sidebar, aside.k-sidebar) :is(.admin-brand, .k-brand) img { width: 30px; height: 30px; flex-basis: 30px; }
+    body .sidebar-collapsed :is(aside.admin-sidebar, aside.k-sidebar) .sidebar-toggle { width: 28px; height: 28px; flex-basis: 28px; font-size: 15px; }
+    body .sidebar-collapsed :is(aside.admin-sidebar, aside.k-sidebar) .sidebar-item { justify-content: center; gap: 0; min-height: 40px; margin-block: 4px; padding: 9px 0; border-radius: 11px; }
+    body .sidebar-collapsed :is(aside.admin-sidebar, aside.k-sidebar) .sidebar-item-icon { width: 18px; flex-basis: 18px; font-size: 18px; }
+    body .sidebar-collapsed :is(aside.admin-sidebar, aside.k-sidebar) .sidebar-item::after,
+    body .sidebar-collapsed :is(aside.admin-sidebar, aside.k-sidebar) :is(.admin-menu-label, .k-nav-label) { display: none; }
+    body .sidebar-collapsed :is(aside.admin-sidebar, aside.k-sidebar) .admin-menu-group { border: 0; background: transparent; box-shadow: none; }
+    body .sidebar-collapsed :is(aside.admin-sidebar, aside.k-sidebar) .workspace-switch { padding: 8px 0; margin-inline: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+    body :is(aside.admin-sidebar, aside.k-sidebar) * { transition: none !important; }
+}

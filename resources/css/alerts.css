@@ -1,0 +1,41 @@
+.swal2-container {
+    z-index: 2000;
+}
+
+.swal2-popup.himsi-alert {
+    width: min(32rem, calc(100vw - 2rem));
+    border-radius: 20px;
+    border-top: 5px solid #ffda00;
+    font-family: var(
+        --bs-body-font-family,
+        "Segoe UI", Arial, sans-serif
+    );
+    color: #1b234f;
+}
+
+.himsi-alert .swal2-title {
+    font-size: clamp(1.25rem, 4vw, 1.7rem);
+}
+
+.himsi-alert .swal2-html-container {
+    font-size: 1rem;
+    overflow-wrap: anywhere;
+    white-space: pre-line;
+}
+
+.himsi-alert .swal2-actions {
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.himsi-alert .swal2-styled {
+    border-radius: 10px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .himsi-alert,
+    .himsi-alert * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
