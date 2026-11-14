@@ -30,9 +30,9 @@ class MeetingPdf extends FinancePdf
         $this->Cell(0, 8, $this->minutesPage ? 'NOTULA RAPAT HIMPUNAN' : 'REKAP ABSENSI RAPAT HIMPUNAN', 0, 1);
         $this->SetFont('Arial', '', 10);
         if ($meeting = $this->currentMeeting) {
-            $this->MultiCell(0, 5.5, $this->encode(Meeting::CATEGORIES[$meeting->category].' | '.$meeting->title));
+            $this->MultiCell(0, 5.5, $this->encode((Meeting::CATEGORIES[$meeting->category] ?? ucfirst($meeting->category)).' | '.$meeting->title));
             $this->MultiCell(0, 5.5, $this->encode('Tanggal: '.$meeting->scheduled_at->copy()->timezone('Asia/Makassar')->format('d/m/Y H:i').' WITA | Tempat: '.$meeting->location));
-            $this->Cell(0, 6, $this->encode('Status: '.Meeting::STATUSES[$meeting->status].' | Dicetak: '.now('Asia/Makassar')->format('d/m/Y H:i').' WITA'), 0, 1);
+            $this->Cell(0, 6, $this->encode('Status: '.(Meeting::STATUSES[$meeting->status] ?? ucfirst($meeting->status)).' | Dicetak: '.now('Asia/Makassar')->format('d/m/Y H:i').' WITA'), 0, 1);
             if (! $this->minutesPage) {
                 $summary = $meeting->attendances->countBy('status');
                 $this->Cell(0, 7, 'Peserta: '.$meeting->attendances->count().'   Hadir: '.($summary['present'] ?? 0).'   Izin: '.($summary['excused'] ?? 0).'   Tidak hadir: '.($summary['absent'] ?? 0).'   Belum mengisi: '.($summary['pending'] ?? 0), 0, 1);
@@ -69,7 +69,7 @@ class MeetingPdf extends FinancePdf
         foreach ($meeting->attendances->sortBy('participant_name')->values() as $index => $attendance) {
             $role = config('superadmin.roles.'.$attendance->participant_role, $attendance->participant_role);
             $department = config('superadmin.departments.'.$attendance->participant_department, '');
-            $this->tableRow([(string) ($index + 1), $attendance->participant_name, $role.($department ? ' / '.$department : ''), MeetingAttendance::STATUSES[$attendance->status], $attendance->attended_at?->copy()->timezone('Asia/Makassar')->format('d/m/Y H:i:s') ?? '-'], shade: $index % 2 === 1);
+            $this->tableRow([(string) ($index + 1), $attendance->participant_name, $role.($department ? ' / '.$department : ''), MeetingAttendance::STATUSES[$attendance->status] ?? ucfirst($attendance->status), $attendance->attended_at?->copy()->timezone('Asia/Makassar')->format('d/m/Y H:i:s') ?? '-'], shade: $index % 2 === 1);
         }
         if ($meeting->minutes) {
             $this->minutesPage = true;

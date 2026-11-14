@@ -24,29 +24,29 @@ class MeetingSeeder extends Seeder
             'koordinator_departemen', 'anggota_departemen',
         ])->get();
 
-        // 1. Rapat Pleno Awal Periode
-        $rapatPleno = Meeting::updateOrCreate(
-            ['title' => 'Rapat Pleno Pengurus HIMSI Awal Periode 2026/2027'],
+        // 1. Rapat Pengurus Inti Awal Periode
+        $rapatPengurusInti = Meeting::updateOrCreate(
+            ['title' => 'Rapat Koordinasi Pengurus Inti HIMSI Awal Periode 2026/2027'],
             [
                 'created_by' => $sekretaris->id,
-                'category' => 'plenary',
+                'category' => 'board',
                 'scheduled_at' => now()->subMonths(2),
                 'location' => 'Ruang Teater Fakultas Teknik Unsulbar',
                 'status' => 'completed',
                 'attendance_opened_at' => now()->subMonths(2),
                 'attendance_closed_at' => now()->subMonths(2)->addHours(4),
-                'minutes' => 'Rapat pleno pengesahan program kerja seluruh departemen, penetapan timeline kegiatan tahunan, dan pengenalan SOP tata kelola persuratan & keuangan.',
+                'minutes' => 'Rapat koordinasi pengesahan program kerja seluruh departemen, penetapan timeline kegiatan tahunan, dan pengenalan SOP tata kelola persuratan & keuangan.',
             ]
         );
 
         foreach ($allOfficers as $index => $officer) {
             MeetingAttendance::updateOrCreate(
-                ['meeting_id' => $rapatPleno->id, 'user_id' => $officer->id],
+                ['meeting_id' => $rapatPengurusInti->id, 'user_id' => $officer->id],
                 [
                     'participant_name' => $officer->name,
                     'participant_role' => $officer->role,
                     'participant_department' => $officer->department,
-                    'status' => ($index === 5) ? 'excused' : 'attended',
+                    'status' => ($index === 5) ? 'excused' : 'present',
                     'source' => 'manual',
                     'attended_at' => ($index === 5) ? null : now()->subMonths(2)->addMinutes(10),
                     'recorded_by' => $sekretaris->id,
@@ -80,6 +80,37 @@ class MeetingSeeder extends Seeder
                     'source' => null,
                     'attended_at' => null,
                     'recorded_by' => null,
+                ]
+            );
+        }
+
+        // 3. Rapat Presidium
+        $presidiumOfficers = User::whereIn('role', ['ketua_umum', 'sekretaris_umum', 'bendahara_umum'])->get();
+        $rapatPresidium = Meeting::updateOrCreate(
+            ['title' => 'Rapat Presidium Pembahasan Anggaran & Kebijakan Himpunan'],
+            [
+                'created_by' => $sekretaris->id,
+                'category' => 'presidium',
+                'scheduled_at' => now()->subDays(5),
+                'location' => 'Ruang Rapat Senat FT Unsulbar',
+                'status' => 'completed',
+                'attendance_opened_at' => now()->subDays(5),
+                'attendance_closed_at' => now()->subDays(5)->addHours(2),
+                'minutes' => 'Pembahasan alokasi dana darurat kegiatan dan evaluasi berkas proposal kemitraan eksternal.',
+            ]
+        );
+
+        foreach ($presidiumOfficers as $officer) {
+            MeetingAttendance::updateOrCreate(
+                ['meeting_id' => $rapatPresidium->id, 'user_id' => $officer->id],
+                [
+                    'participant_name' => $officer->name,
+                    'participant_role' => $officer->role,
+                    'participant_department' => null,
+                    'status' => 'present',
+                    'source' => 'manual',
+                    'attended_at' => now()->subDays(5)->addMinutes(5),
+                    'recorded_by' => $sekretaris->id,
                 ]
             );
         }

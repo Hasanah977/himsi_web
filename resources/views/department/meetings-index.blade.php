@@ -27,7 +27,7 @@
     </form>
     <div class="table-responsive"><table class="table k-table"><thead><tr><th>Agenda</th><th>Kategori</th><th>Jadwal (WITA)</th><th>Status</th><th>Kehadiran</th><th></th></tr></thead><tbody>
     @forelse($meetings as $meeting)
-        <tr><td>{{ $meeting->title }}<small class="d-block text-secondary">{{ $meeting->location }}</small></td><td>{{ \App\Models\Meeting::CATEGORIES[$meeting->category] }}</td><td>{{ $meeting->scheduled_at->copy()->timezone('Asia/Makassar')->format('d/m/Y H:i') }}</td><td>{{ \App\Models\Meeting::STATUSES[$meeting->status] }}</td><td>{{ $meeting->present_count }} / {{ $meeting->attendances_count }} hadir</td><td><a class="btn btn-outline-navy btn-sm" href="{{ route('meetings.show', $meeting) }}">Buka Rapat</a></td></tr>
+        <tr><td>{{ $meeting->title }}<small class="d-block text-secondary">{{ $meeting->location }}</small></td><td>{{ \App\Models\Meeting::CATEGORIES[$meeting->category] ?? ucfirst(str_replace('_', ' ', $meeting->category)) }}</td><td>{{ $meeting->scheduled_at->copy()->timezone('Asia/Makassar')->format('d/m/Y H:i') }}</td><td>{{ \App\Models\Meeting::STATUSES[$meeting->status] ?? ucfirst(str_replace('_', ' ', $meeting->status)) }}</td><td>{{ $meeting->present_count }} / {{ $meeting->attendances_count }} hadir</td><td><a class="btn btn-outline-navy btn-sm" href="{{ route('meetings.show', $meeting) }}">Buka Rapat</a></td></tr>
     @empty<tr><td colspan="6" class="text-center py-5">Belum ada rapat yang sesuai dengan filter.</td></tr>@endforelse
     </tbody></table></div>
     {{ $meetings->links() }}

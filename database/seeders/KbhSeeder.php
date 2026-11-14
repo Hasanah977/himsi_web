@@ -112,7 +112,7 @@ class KbhSeeder extends Seeder
                     ['user_id' => $member->id, 'tahun' => 2026, 'bulan' => $bulan],
                     [
                         'nominal' => $nominalIuran,
-                        'status' => 'diverifikasi',
+                        'status' => 'lunas',
                         'bukti_path' => 'kbh_iuran/bukti_bayar_sample.jpg',
                         'bukti_nama' => 'transfer_kas_'.$bulan.'.jpg',
                         'bukti_mime' => 'image/jpeg',

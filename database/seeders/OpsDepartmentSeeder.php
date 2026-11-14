@@ -38,7 +38,7 @@ class OpsDepartmentSeeder extends Seeder
             if ($umumGroup) {
                 DB::table('ops_group_members')->updateOrInsert(
                     ['group_id' => $umumGroup->id, 'user_id' => $user->id],
-                    ['created_at' => now(), 'updated_at' => now()]
+                    []
                 );
             }
 
@@ -46,7 +46,7 @@ class OpsDepartmentSeeder extends Seeder
             if ($kbhGroup && $user->isStudentAccount()) {
                 DB::table('ops_group_members')->updateOrInsert(
                     ['group_id' => $kbhGroup->id, 'user_id' => $user->id],
-                    ['created_at' => now(), 'updated_at' => now()]
+                    []
                 );
             }
 
@@ -55,7 +55,7 @@ class OpsDepartmentSeeder extends Seeder
                 $deptGroup = $groups->get('departemen-'.$user->department);
                 DB::table('ops_group_members')->updateOrInsert(
                     ['group_id' => $deptGroup->id, 'user_id' => $user->id],
-                    ['created_at' => now(), 'updated_at' => now()]
+                    []
                 );
             }
         }
